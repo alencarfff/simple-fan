@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+html,
+body { height: 100% }
+
+body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.panel { 
+    height: 75%; 
+    text-align: center; 
+}
+input { display: none }
+
+.off-btn { margin-right: 30px !important }
+.btn {
+    margin: 5px 1.25px;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px 20px;
+    color: #fafafa;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    border-width: 5px;
+    border-style: outset;
+}
+
+label { font-weight: 700 }
+
+#off:checked ~ .buttons .off-btn,
+#vel-1x:checked ~ .buttons .vel-1x-btn,
+#vel-2x:checked ~ .buttons .vel-2x-btn,
+#vel-3x:checked ~ .buttons .vel-3x-btn { 
+    cursor: default;
+    border-style: inset;
+    filter: grayscale(62.5%);
+}
+
+.fan {
+    margin-top: 50px;
+    z-index: -1;
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+.propeller-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: animation-duration 300ms ease;    
+}
+.inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75px;
+    height: 75px;
+    border-radius: 100%;
+    z-index: 5;
+    box-shadow: 0 0 2px;
+}
+.propeller {
+    width: 50%;
+    height: 50px;
+    background: #eee;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: -2px -2px 5px 3px #333;
+    border-right: 35px double;
+    border-radius: 2.5px;
+}
+.propeller:nth-child(1){ transform: rotate(90deg) translate(38.5%, 200%); z-index: 4}
+.propeller:nth-child(2){ transform: rotate(-360deg) translate(0%, -50%); z-index: 4}
+.propeller:nth-child(3){ transform: rotate(270deg) translate(62.5%, -200%); z-index: 3}
+.propeller:nth-child(4){ transform: rotate(180deg) translate(100%, 50%); z-index: 2}
+
+#off:checked ~ .fan .propeller-wrapper,
+#vel-1x:checked ~ .fan .propeller-wrapper,
+#vel-2x:checked ~ .fan .propeller-wrapper,
+#vel-3x:checked ~ .fan .propeller-wrapper {
+    animation: rotate linear infinite
+}
+
+#off:checked ~ .fan .propeller-wrapper { animation-duration: 0 }
+#vel-1x:checked ~ .fan .propeller-wrapper { animation-duration: 1.35s }
+#vel-2x:checked ~ .fan .propeller-wrapper { animation-duration: 1.15s }
+#vel-3x:checked ~ .fan .propeller-wrapper { animation-duration: 0.1s }
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10;
+}
+
+#off ~ .buttons .off-btn,
+#off:checked ~ .fan .inner-circle,
+#off:checked ~ #background { 
+    background: orangered;
+}
+
+#vel-1x ~ .buttons .vel-1x-btn,
+#vel-1x:checked ~ .fan .inner-circle,
+#vel-1x:checked ~ #background { 
+    background: #43e016;
+}
+
+#vel-2x ~ .buttons .vel-2x-btn,
+#vel-2x:checked ~ .fan .inner-circle,
+#vel-2x:checked ~ #background { 
+    background: #16b1e0;
+}
+
+#vel-3x ~ .buttons .vel-3x-btn,
+#vel-3x:checked ~ .fan .inner-circle,
+#vel-3x:checked ~ #background { 
+    background: #8516e0;
+}
+
+#off ~ .buttons .off-btn,
+#off:checked ~ .fan .propeller { 
+    border-color: orangered
+}
+
+#vel-1x ~ .buttons .vel-1x-btn,
+#vel-1x:checked ~ .fan .propeller { 
+    border-color: #43e016 
+}
+
+#vel-2x ~ .buttons .vel-2x-btn,
+#vel-2x:checked ~ .fan .propeller { 
+    border-color: #16b1e0 
+}
+
+#vel-3x ~ .buttons .vel-3x-btn,
+#vel-3x:checked ~ .fan .propeller { 
+    border-color: #8516e0 
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(-2880deg) }
+}
